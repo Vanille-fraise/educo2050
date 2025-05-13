@@ -1,5 +1,5 @@
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
 
 interface HeroSectionProps {
   imageSrc: string;
@@ -15,19 +15,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({ imageSrc, title, text }) => {
 
   return (
     <main className="flex-grow flex items-center justify-center p-8 pt-20 sm:pt-20">
-      <div className="flex flex-col sm:flex-row items-center gap-8 mx-auto max-w-7xl w-full"> {/* Added mx-auto max-w-7xl w-full for better centering and bounds for very large screens */}
-        <div className="relative w-full sm:w-auto"> {/* Ensure wrapper can accommodate image size */}
+      {/* Main flex container: switches to row on sm screens */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mx-auto max-w-9xl w-full">
+        {/* Image Wrapper: takes full width on small, half width on sm+ */}
+        <div className="relative w-full sm:w-1/2">
           <Image
+            priority
             src={imageSrc}
             alt={title}
             width={1200} // Intrinsic width of the source image for quality
             height={800} // Intrinsic height of the source image for quality
-            className="w-full sm:w-96 md:w-[600px] lg:w-[800px] h-auto rounded-lg shadow-2xl object-cover" // Responsive width and auto height
+            // Image fills its wrapper, which controls its responsive size
+            className="w-full h-auto rounded-lg shadow-2xl object-cover"
           />
         </div>
+        {/* Text Wrapper: takes full width on small, half width on sm+ */}
         {/* Apply textStyle to the div containing text elements */}
-        <div style={textStyle} className="max-w-md">
-          {/* Tailwind's text-gray-700 might be overridden by inline style. Remove if not needed. */}
+        <div style={textStyle} className="w-full sm:w-1/2 max-w-md">
           <h1 className="text-3xl font-bold mb-4">{title}</h1>
           <p className="text-base">{text}</p>
         </div>

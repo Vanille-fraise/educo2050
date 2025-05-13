@@ -1,72 +1,22 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import Background from "../components/Background";
-import { useState, useEffect } from "react";
-import { getDominantColor, getContrastTextColor } from "../utils/colorUtils";
+import MainLayout from '../components/layouts/MainLayout';
+import HeroSection from '../components/HeroSection';
+// Removed useState, useEffect, and color utilities as MainLayout handles them
+// Removed Geist fonts as MainLayout handles them
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-interface DynamicStyles extends React.CSSProperties {
-  '--dynamic-background-color'?: string;
-  '--dynamic-text-color'?: string;
-}
-
-export default function Home() {
-  const heroImage = "/happy-classroom.webp";
-  const heroTitle = "Titre de la Section Personnalisé";
+export default function HomePage() {
+  const heroImage = "/happy-classroom.webp"; // Image for this page's background
+  const heroTitle = "Ici le slogan d'Educo2050";
   const heroText =
-    "Ceci est un texte descriptif personnalisé pour la section hero. Il peut être aussi long ou court que nécessaire pour transmettre le message souhaité.";
-
-  const [dynamicStyles, setDynamicStyles] = useState<DynamicStyles>({});
-
-  useEffect(() => {
-    getDominantColor(heroImage)
-      .then(bgColor => {
-        if (bgColor) {
-          const contrastText = getContrastTextColor(bgColor);
-          setDynamicStyles({
-            '--dynamic-background-color': bgColor,
-            '--dynamic-text-color': contrastText,
-          });
-        } else {
-           // Set default fallback colors if image loading or color extraction fails
-          setDynamicStyles({
-            '--dynamic-background-color': 'transparent', // Or a default background
-            '--dynamic-text-color': '#000000', // Default text color
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Failed to get dominant color:", error);
-        setDynamicStyles({
-          '--dynamic-background-color': 'transparent',
-          '--dynamic-text-color': '#000000',
-        });
-      });
-  }, [heroImage]);
+    "Ici est la description courte de l'association et de ce qu'elle fait!";
 
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} relative min-h-screen flex flex-col font-[family-name:var(--font-geist-sans)]`}
-      style={dynamicStyles} // Apply CSS custom properties here
-    >
-      <Background />
-      <Navbar />
+    <MainLayout heroImage={heroImage}>
       <HeroSection
-        imageSrc={heroImage}
+        imageSrc={heroImage} 
         title={heroTitle}
         text={heroText}
       />
-    </div>
+      {/* Any other content specific to the homepage can go here */}
+    </MainLayout>
   );
 }

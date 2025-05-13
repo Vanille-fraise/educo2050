@@ -1,15 +1,37 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Trenda';
+  src: url('/fonts/TRENDA/Latinotype - Trenda Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Trenda';
+  src: url('/fonts/TRENDA/Latinotype - Trenda Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Trenda';
+  src: url('/fonts/TRENDA/Latinotype - Trenda Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-trenda: 'Trenda', sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-trenda);
+  --font-mono: var(--font-geist-mono); /* Assuming you want to keep Geist Mono or replace if you have a Trenda Mono */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +44,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
