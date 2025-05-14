@@ -1,15 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { SM_BREAKPOINT_PX } from '../utils/breakpoints'; // Import the breakpoint
 
-// No longer needs textColor prop
 const Navbar: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < SM_BREAKPOINT_PX);
+      if (window.innerWidth >= SM_BREAKPOINT_PX && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false); // Close mobile menu if screen becomes larger
+      }
+    };
+    checkScreenSize(); // Initial check
+    window.addEventListener('resize', checkScreenSize);
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, [isMobileMenuOpen]); // Add isMobileMenuOpen to dependencies
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   const linkStyle: React.CSSProperties = {
-    color: 'var(--dynamic-text-color, #FFFFFF)', // Use CSS variable with a fallback to white
+    color: 'var(--dynamic-text-color, #FFFFFF)',
     fontWeight: 'bold',
   };
 
+  const mobileLinkStyle: React.CSSProperties = {
+    color: '#333', // Darker text color for better readability on the panel
+    fontWeight: 'bold',
+  };
+  
+  const navLinks = [
+    { href: "#", label: "Accueil" },
+    { href: "#", label: "Qui sommes nous" },
+    { href: "#", label: "L'école du nous" },
+    { href: "#", label: "Notre équipe" },
+    { href: "#", label: "Nos actions" },
+  ];
+
   return (
     <nav className="absolute top-0 left-0 right-0 bg-transparent p-4 flex justify-between items-center z-20">
+      {/* Logo */}
       <div>
         <a href="#" className="flex items-center">
           <Image
@@ -21,31 +56,68 @@ const Navbar: React.FC = () => {
           />
         </a>
       </div>
-      <div className="flex items-center space-x-4 md:space-x-14"> {/* Changed here */}
-        <a href="#" style={linkStyle} className="hover:text-gray-300"> {/* Consider updating hover color too if needed */}
-          Accueil
-        </a>
-        <a href="#" style={linkStyle} className="hover:text-gray-300">
-          Qui sommes nous
-        </a>
-        <a href="#" style={linkStyle} className="hover:text-gray-300">
-          L'école du nous
-        </a>
-        <a href="#" style={linkStyle} className="hover:text-gray-300">
-          Notre équipe
-        </a>
-        <a href="#" style={linkStyle} className="hover:text-gray-300">
-          Nos actions
-        </a>
-        {/* The button text color might need to be addressed separately if it shouldn't follow --dynamic-text-color */}
-        {/* For example, if it always needs to be white on a blue background. */}
-        <button 
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          // If button text should also be dynamic: style={{ color: 'var(--dynamic-text-color)' }} (and adjust bg)
+
+      {/* Desktop Navigation Links & Contact Button */}
+      {!isSmallScreen && (
+        <div className="hidden sm:flex items-center space-x-4 md:space-x-14">
+          {navLinks.map(link => (
+            <a key={link.label} href={link.href} style={linkStyle} className="hover:text-gray-300">
+              {link.label}
+            </a>
+          ))}
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Contactez nous
+          </button>
+        </div>
+      )}
+
+      {/* Combined Burger/Close Menu Icon (Visible on small screens) */}
+      {isSmallScreen && (
+        <button
+          onClick={toggleMobileMenu}
+          className={`focus:outline-none z-40 ${isMobileMenuOpen ? 'text-gray-700' : 'text-white'}`}
+          style={!isMobileMenuOpen ? { color: 'var(--dynamic-text-color, #FFFFFF)' } : {}}
+          aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
         >
-          Contactez nous
+          {isMobileMenuOpen ? (
+            // Close Icon (X)
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            // Burger Icon
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          )}
         </button>
-      </div>
+      )}
+
+      {/* Mobile Menu Panel (Glassy, slides from right) */}
+      {isSmallScreen && (
+        <div 
+          className={`fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white/20 backdrop-blur-md shadow-xl z-30 p-6 pt-16 overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          {/* Removed the separate close button from here */}
+          {/* Navigation Links in Mobile Menu */}
+          <nav className="flex flex-col space-y-4">
+            {navLinks.map(link => (
+              <a key={link.label} href={link.href} style={mobileLinkStyle} className="hover:text-blue-500 py-2">
+                {link.label}
+              </a>
+            ))}
+            <button
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+            >
+              Contactez nous
+            </button>
+          </nav>
+        </div>
+      )}
     </nav>
   );
 };
