@@ -14,7 +14,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ title, description, imageUr
       <div className="flex flex-col items-center mr-6">
         {/* Circle */}
         <div className="flex-shrink-0 w-20 h-20 rounded-full border-4 border-dashed border-blue-600 bg-white flex items-center justify-center z-10 relative shadow-md">
-          <Image src={imageUrl} alt={title} width={64} height={64} className="rounded-full object-cover" />
+          <Image src={imageUrl} alt={title} width={64} height={64} className="rounded-full object-cover revert-layer" />
         </div>
         {/* Vertical line (if not the last item) */}
         {!isLast && (
