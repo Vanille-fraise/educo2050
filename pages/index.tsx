@@ -1,7 +1,6 @@
 import MainLayout from '../components/layouts/MainLayout';
 import HeroSection from '../components/HeroSection';
-// Removed useState, useEffect, and color utilities as MainLayout handles them
-// Removed Geist fonts as MainLayout handles them
+import Head from 'next/head';
 
 export default function HomePage() {
   const heroImage = "/happy-classroom.webp"; // Image for this page's background
@@ -10,6 +9,12 @@ export default function HomePage() {
     "Ici est la description courte de l'association et de ce qu'elle fait!";
 
   return (
+    <>
+          <Head>
+        <title>Educo 2050</title>
+        <meta name="description" content="Educo 2050. L'association pour l'éducation du futur." />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </Head>
     <MainLayout heroImage={heroImage}>
       <HeroSection
         imageSrc={heroImage} 
@@ -18,5 +23,6 @@ export default function HomePage() {
       />
       {/* Any other content specific to the homepage can go here */}
     </MainLayout>
+    </>
   );
 }

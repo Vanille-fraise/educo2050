@@ -35,8 +35,8 @@ const Navbar: React.FC = () => {
   };
   
   const navLinks = [
-    { href: "#", label: "Accueil" },
-    { href: "#", label: "Qui sommes nous" },
+    { href: "/", label: "Accueil" },
+    { href: "/organizationPresentation", label: "Qui sommes nous" },
     { href: "#", label: "L'école du nous" },
     { href: "#", label: "Notre équipe" },
     { href: "#", label: "Nos actions" },
@@ -45,14 +45,15 @@ const Navbar: React.FC = () => {
   return (
     <nav className="absolute top-0 left-0 right-0 bg-transparent p-4 flex justify-between items-center z-20">
       {/* Logo */}
-      <div>
-        <a href="#" className="flex items-center">
+      <div className="flex-shrink-0">
+        <a href="/" className="flex items-center"> {/* Updated logo href to root */}
           <Image
             src="/logo-squared-white-bg.png"
             alt="Company Logo"
             width={40}
             height={40}
-            className="h-10 w-auto"
+            className="h-10"
+            style={{ width: 'auto' }}
           />
         </a>
       </div>
