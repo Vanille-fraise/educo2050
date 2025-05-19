@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { SM_BREAKPOINT_PX } from '../utils/breakpoints'; // Import the breakpoint
+import Link from 'next/link'; // Import Link from next/link
+import { SM_BREAKPOINT_PX } from '../utils/globalVariablesUtils'; // Import the breakpoint
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,7 +47,7 @@ const Navbar: React.FC = () => {
     <nav className="absolute top-0 left-0 right-0 bg-transparent p-4 flex justify-between items-center z-20">
       {/* Logo */}
       <div className="flex-shrink-0">
-        <a href="/" className="flex items-center"> {/* Updated logo href to root */}
+        <Link href="/" legacyBehavior><a> {/* Updated logo href to root and used Link */}
           <Image
             src="/logo-squared-white-bg.png"
             alt="Company Logo"
@@ -55,22 +56,24 @@ const Navbar: React.FC = () => {
             className="h-10"
             style={{ width: 'auto' }}
           />
-        </a>
+        </a></Link>
       </div>
 
       {/* Desktop Navigation Links & Contact Button */}
       {!isSmallScreen && (
         <div className="hidden sm:flex items-center space-x-4 md:space-x-14">
           {navLinks.map(link => (
-            <a key={link.label} href={link.href} style={linkStyle} className="hover:text-gray-300">
+            <Link key={link.label} href={link.href} legacyBehavior><a style={linkStyle} className="hover:text-gray-300">
               {link.label}
-            </a>
+            </a></Link>
           ))}
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Contactez nous
-          </button>
+          <Link href="/contactPage" legacyBehavior><a>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Nous contacter
+            </button>
+          </a></Link>
         </div>
       )}
 
@@ -103,19 +106,20 @@ const Navbar: React.FC = () => {
             isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
-          {/* Removed the separate close button from here */}
-          {/* Navigation Links in Mobile Menu */}
           <nav className="flex flex-col space-y-4">
             {navLinks.map(link => (
-              <a key={link.label} href={link.href} style={mobileLinkStyle} className="hover:text-blue-500 py-2">
+              <Link key={link.label} href={link.href} legacyBehavior><a style={mobileLinkStyle} className="hover:text-blue-500 py-2" onClick={isMobileMenuOpen ? toggleMobileMenu : undefined}>
                 {link.label}
-              </a>
+              </a></Link>
             ))}
-            <button
-              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
-            >
-              Contactez nous
-            </button>
+            <Link href="/contactPage" legacyBehavior><a>
+              <button
+                className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+                onClick={isMobileMenuOpen ? toggleMobileMenu : undefined}
+              >
+                Contactez nous
+              </button>
+            </a></Link>
           </nav>
         </div>
       )}

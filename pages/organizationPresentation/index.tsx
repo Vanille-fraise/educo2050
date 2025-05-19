@@ -1,5 +1,5 @@
 import MainLayout from '../../components/layouts/MainLayout';
-import TimelineItem from '../../components/timeline/TimelineItem';
+import MediaChain from '../../components/MediaChain';
 
 const OrganizationPresentationPage = () => {
   const timelineData = [
@@ -29,17 +29,7 @@ const OrganizationPresentationPage = () => {
           Discover the story of our company, from its humble beginnings to where we are today.
         </p>
 
-        <div className="relative max-w-2xl mx-auto">
-          {timelineData.map((item, index) => (
-            <TimelineItem
-              key={index}
-              title={item.title}
-              description={item.description}
-              imageUrl={item.imageUrl}
-              isLast={index === timelineData.length - 1}
-            />
-          ))}
-        </div>
+        <MediaChain items={timelineData} />
       </div>
     </MainLayout>
   );
