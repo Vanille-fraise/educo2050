@@ -4,11 +4,6 @@ import Head from 'next/head';
 export default function ContactPage() {
   return (
     <>
-      <Head>
-        <title>Contactez-nous - Educo 2050</title>
-        <meta name="description" content="Page de contact Educo 2050." />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-      </Head>
       <MainLayout pageColor="#00B0BA">
         <div className="container mx-auto px-4 py-8 text-center">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Nous contacter</h1>
