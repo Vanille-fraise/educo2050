@@ -1,1 +1,1 @@
-Hello eduo
+Hello educo
