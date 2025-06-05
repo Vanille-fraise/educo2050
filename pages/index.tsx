@@ -6,7 +6,7 @@ export default function HomePage() {
   const heroImage = "/happy-classroom.webp"; // Image for this page's background
   const heroTitle = "Ici le slogan d'Educo2050";
   const heroText =
-    "Test new modif Ici est la description courte de l'association et de ce qu'elle fait!";
+    "Test new modif  another modifci est la description courte de l'association et de ce qu'elle fait!";
 
   return (
     <>
