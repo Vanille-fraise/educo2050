@@ -8,16 +8,10 @@ const BG_PATH = "students-knowing-right-answer-small.jpg";
 const UsSchoolPage: React.FC = () => {
   return (
     <>
-      <MainLayout pageColor="white">
-        <div
-          className="flex flex-2"
-          style={{
-            backgroundImage: "url(" + BG_PATH + ")",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-        >
+      <MainLayout
+        backgroundImageURL={BG_PATH}
+      >
+        <div className="flex flex-2">
           <div className="flex flex-1"></div>
           <div className="flex flex-1 flex-col">
             <div

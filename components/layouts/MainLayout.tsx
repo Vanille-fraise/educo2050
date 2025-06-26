@@ -12,6 +12,7 @@ interface MainLayoutProps {
   heroImage?: string;
   pageColor?: string;
   backgroundImageURL?: string;
+  onTopBackGroundImage?: string;
 }
 
 const siteDefaultBgColor = "white";
@@ -21,6 +22,7 @@ export default function MainLayout({
   heroImage,
   pageColor,
   backgroundImageURL,
+  onTopBackGroundImage,
 }: MainLayoutProps) {
   useEffect(() => {
     let newBgColor = pageColor || siteDefaultBgColor;
@@ -63,8 +65,35 @@ export default function MainLayout({
     }
   }, [heroImage, pageColor]);
 
+  const layoutStyle: React.CSSProperties = backgroundImageURL
+    ? {
+        backgroundImage: `url(${backgroundImageURL})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }
+    : {};
+
+  const onTopBackgroundStyle: React.CSSProperties = onTopBackGroundImage
+    ? {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundImage: onTopBackGroundImage,
+        zIndex: 0,
+      }
+    : {};
+
   return (
-    <div className={`relative min-h-screen flex flex-col`}>
+    <div
+      className={`relative min-h-screen flex flex-col`}
+      style={layoutStyle}
+    >
+      {onTopBackGroundImage && (
+        <div style={onTopBackgroundStyle} />
+      )}
       <Background /> <Navbar />
       <main className="flex flex-col flex-grow justify-center z-10">
         {children}
