@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
     { href: "/", label: "Accueil" },
     { href: "/organizationPresentation", label: "Qui sommes nous" },
     { href: "/usSchool", label: "L'école du nous" },
-    { href: "#", label: "Notre équipe" },
+    { href: "/ourTeam", label: "Notre équipe" },
     { href: "#", label: "Nos actions" },
   ];
 
