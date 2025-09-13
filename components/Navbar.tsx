@@ -3,6 +3,9 @@ import Image from "next/image";
 import { SM_BREAKPOINT_PX } from "../utils/globalVariablesUtils"; // Import the breakpoint
 import { useRouter } from "next/router";
 
+const NAVBAR_HEIGHT = 40;
+export const NAVBAR_SPACE = NAVBAR_HEIGHT + 2 * 16; // adding twice the padding
+
 const Navbar: React.FC = () => {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -55,7 +58,7 @@ const Navbar: React.FC = () => {
             src="/logo-squared-white-bg.png"
             alt="Company Logo"
             width={40}
-            height={40}
+            height={NAVBAR_HEIGHT}
             className="h-10"
             style={{ width: "auto" }}
           />

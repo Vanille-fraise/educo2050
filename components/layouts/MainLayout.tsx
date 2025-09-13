@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "../Navbar";
+import Navbar, { NAVBAR_SPACE } from "../Navbar";
 import Background from "../Background";
 import {
   getDominantColor,
@@ -87,15 +87,11 @@ export default function MainLayout({
     : {};
 
   return (
-    <div
-      className={`relative min-h-screen flex flex-col`}
-      style={layoutStyle}
-    >
-      {onTopBackGroundImage && (
-        <div style={onTopBackgroundStyle} />
-      )}
+    <div className={`relative min-h-screen flex flex-col`} style={layoutStyle}>
+      {onTopBackGroundImage && <div style={onTopBackgroundStyle} />}
       <Background /> <Navbar />
       <main className="flex flex-col flex-grow justify-center z-10">
+        <div style={{ height: NAVBAR_SPACE }}></div>
         {children}
       </main>
     </div>
