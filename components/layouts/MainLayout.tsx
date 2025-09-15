@@ -91,7 +91,7 @@ export default function MainLayout({
       {onTopBackGroundImage && <div style={onTopBackgroundStyle} />}
       <Background /> <Navbar />
       <main className="flex flex-col flex-grow justify-center z-10">
-        <div style={{ height: NAVBAR_SPACE }}></div>
+        <div id="navbar-space" style={{ height: NAVBAR_SPACE }}></div>
         {children}
       </main>
     </div>
